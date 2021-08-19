@@ -12,7 +12,7 @@ public class LoginController
     public ModelAndView login()
     {
         ModelAndView retVal = new ModelAndView();
-        retVal.setViewName("loginPage");
+        retVal.setViewName("login");
         return retVal;
     }
 
@@ -20,7 +20,7 @@ public class LoginController
     public ModelAndView logout()
     {
         ModelAndView retVal = new ModelAndView();
-        retVal.setViewName("logoutPage");
+        retVal.setViewName("logout");
         return retVal;
     }
 
@@ -28,7 +28,7 @@ public class LoginController
     public ModelAndView authFailed()
     {
         ModelAndView retVal = new ModelAndView();
-        retVal.setViewName("authFailedPage");
+        retVal.setViewName("common/authFailedPage");
         return retVal;
     }
 
@@ -36,7 +36,7 @@ public class LoginController
     public ModelAndView accessDenied()
     {
         ModelAndView retVal = new ModelAndView();
-        retVal.setViewName("accessDeniedPage");
+        retVal.setViewName("common/accessDeniedPage");
         return retVal;
     }
 }

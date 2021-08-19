@@ -1,19 +1,77 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>ECollect Process</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Main page</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+
 </head>
 <body>
+   <div class="container">
+      <div th:replace="parts/pieces::logoutForm">
+      </div>
+		<div th:replace="parts/pieces::header">
+		</div>
+      
+      <div class="row">
+         <div class="col-xs-12">
+            <div class="panel panel-default">
+               <div class="panel-body">
+                  <h3>Index Page</h3>
+                  <p>You can see this section as long as you are logged in.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+      
+      <div class="row" sec:authorize="hasRole('USER')">
+         <div class="col-xs-12">
+            <div class="panel panel-default">
+               <div class="panel-body">
+                  <h3>Only User can See This</h3>
+                  <p>If you have the &quot;ROLE_USER&quot;. You will be able to see this section. User Section.</p>
+               </div>
+            </div>
+         </div>
+      </div>
 
-<h1>ECollect Process</h1>
+      <div class="row" sec:authorize="hasRole('EBIZ1')">
+         <div class="col-xs-12">
+            <div class="panel panel-default">
+               <div class="panel-body">
+                  <h3>Only Staff can See This</h3>
+                  <p>If you have the &quot;EBIZ1&quot;. You will be able to see this section. EBIZ1 Section.</p>
+               </div>
+            </div>
+         </div>
+      </div>
 
-<form action="#" th:action="@{/demo}" method="post">
-    <p>
-        <input type="submit" value="Submit"/> <input type="reset" value="Reset">
-    </p>
-</form>
+      <div class="row" sec:authorize="hasRole('EBIZ2')">
+         <div class="col-xs-12">
+            <div class="panel panel-default">
+               <div class="panel-body">
+                  <h3>Only Staff can See This</h3>
+                  <p>If you have the &quot;EBIZ2&quot;. You will be able to see this section. EBIZ2 Section.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+      
+      <div class="row" sec:authorize="hasRole('ADMIN')">
+         <div class="col-xs-12">
+            <div class="panel panel-default">
+               <div class="panel-body">
+                  <h3>Only Admin can See This</h3>
+                  <p>If you have the &quot;ADMIN&quot;. You will be able to see this section. Admin Section.</p>
+               </div>
+            </div>
+         </div>
+      </div>
 
+   </div>
+   
+   <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>

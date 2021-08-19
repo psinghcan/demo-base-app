@@ -14,9 +14,29 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    public WebAppSecurityConfig(AccessDeniedHandler accessDeniedHandler, AppUserAuthenticationService authenticationService){
+//    public WebAppSecurityConfig(AccessDeniedHandler accessDeniedHandler, AppUserAuthenticationService authenticationService){
+//        this.accessDeniedHandler = accessDeniedHandler;
+//        this.authenticationService = authenticationService;
+//    }
+
+    public WebAppSecurityConfig(AccessDeniedHandler accessDeniedHandler){
         this.accessDeniedHandler = accessDeniedHandler;
-        this.authenticationService = authenticationService;
+    }
+
+
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
+        auth.inMemoryAuthentication()
+                .withUser("user")
+                .password("user123").roles("USER");
+        auth.inMemoryAuthentication()
+                .withUser("ebiz1")
+                .password("ebiz123").roles("EBIZ1");
+        auth.inMemoryAuthentication()
+                .withUser("ebiz2")
+                .password("ebiz123").roles("EBIZ2");
+        auth.inMemoryAuthentication()
+                .withUser("admin")
+                .password("admin123").roles("USER", "EBIZ1", "EBIZ2", "ADMIN");
     }
 
     @Override
@@ -24,7 +44,7 @@ public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
     {
         http
                 .authorizeRequests()
-                .antMatchers("/assets/**", "/public/**").permitAll()
+                .antMatchers("/webjars/**", "/public/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -41,14 +61,14 @@ public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder authMgrBuilder)
-            throws Exception
-    {
-        authMgrBuilder.authenticationProvider(authenticationService);
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder authMgrBuilder)
+//            throws Exception
+//    {
+//        authMgrBuilder.authenticationProvider(authenticationService);
+//    }
 
     private AccessDeniedHandler accessDeniedHandler;
-    private AppUserAuthenticationService authenticationService;
+//    private AppUserAuthenticationService authenticationService;
 
 }

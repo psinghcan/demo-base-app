@@ -14,7 +14,7 @@ public class SecuredPageController
     public ModelAndView index1()
     {
         ModelAndView retVal = new ModelAndView();
-        retVal.setViewName("indexPage");
+        retVal.setViewName("index");
         return retVal;
     }
 

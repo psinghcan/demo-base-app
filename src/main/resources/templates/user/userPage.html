@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css.bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <div th:replace="parts/pieces::logoutForm">
+    </div>
+    <div th:replace="parts/pieces::logout_header">
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>User Page</h3>
+                    <p>You can only see this section as long as you are logged in, as a &quot;User&quot;.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>
