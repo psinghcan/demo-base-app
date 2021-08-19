@@ -29,14 +29,14 @@ public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("user")
                 .password("user123").roles("USER");
         auth.inMemoryAuthentication()
-                .withUser("ebiz1")
-                .password("ebiz123").roles("EBIZ1");
+                .withUser("biz1")
+                .password("biz123").roles("BIZ1");
         auth.inMemoryAuthentication()
-                .withUser("ebiz2")
-                .password("ebiz123").roles("EBIZ2");
+                .withUser("biz2")
+                .password("biz123").roles("BIZ2");
         auth.inMemoryAuthentication()
                 .withUser("admin")
-                .password("admin123").roles("USER", "EBIZ1", "EBIZ2", "ADMIN");
+                .password("admin123").roles("USER", "BIZ1", "BIZ2", "ADMIN");
     }
 
     @Override

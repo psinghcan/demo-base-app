@@ -1,77 +1,28 @@
-<!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <title>Main page</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-
+   <title>Welcome to Our Site</title>
 </head>
 <body>
-   <div class="container">
-      <div th:replace="parts/pieces::logoutForm">
-      </div>
-		<div th:replace="parts/pieces::header">
-		</div>
-      
-      <div class="row">
-         <div class="col-xs-12">
-            <div class="panel panel-default">
-               <div class="panel-body">
-                  <h3>Index Page</h3>
-                  <p>You can see this section as long as you are logged in.</p>
-               </div>
-            </div>
-         </div>
-      </div>
-      
-      <div class="row" sec:authorize="hasRole('USER')">
-         <div class="col-xs-12">
-            <div class="panel panel-default">
-               <div class="panel-body">
-                  <h3>Only User can See This</h3>
-                  <p>If you have the &quot;ROLE_USER&quot;. You will be able to see this section. User Section.</p>
-               </div>
-            </div>
-         </div>
-      </div>
 
-      <div class="row" sec:authorize="hasRole('EBIZ1')">
-         <div class="col-xs-12">
-            <div class="panel panel-default">
-               <div class="panel-body">
-                  <h3>Only Staff can See This</h3>
-                  <p>If you have the &quot;EBIZ1&quot;. You will be able to see this section. EBIZ1 Section.</p>
-               </div>
+<div layout:fragment="content">
+   <section class="my-5">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-12">
+               <h1>Welcome to Our Site</h1>
+               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                  labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                  voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                  non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </div>
          </div>
       </div>
+   </section>
+</div>
 
-      <div class="row" sec:authorize="hasRole('EBIZ2')">
-         <div class="col-xs-12">
-            <div class="panel panel-default">
-               <div class="panel-body">
-                  <h3>Only Staff can See This</h3>
-                  <p>If you have the &quot;EBIZ2&quot;. You will be able to see this section. EBIZ2 Section.</p>
-               </div>
-            </div>
-         </div>
-      </div>
-      
-      <div class="row" sec:authorize="hasRole('ADMIN')">
-         <div class="col-xs-12">
-            <div class="panel panel-default">
-               <div class="panel-body">
-                  <h3>Only Admin can See This</h3>
-                  <p>If you have the &quot;ADMIN&quot;. You will be able to see this section. Admin Section.</p>
-               </div>
-            </div>
-         </div>
-      </div>
-
-   </div>
-   
-   <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>
