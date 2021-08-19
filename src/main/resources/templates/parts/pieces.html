@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8"/>
+      <title>Spring Boot Thymeleaf Application - Fragments</title>
+   </head>
+   <body>
+      <div th:fragment="logoutForm">
+         <form id="logoutForm" th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+            <input type="submit" value="Logout" />
+         </form>
+      </div>
+      <div th:fragment="header">
+         <div class="row">
+            <div class="col-xs-12 text-right">
+               <a href="/secure/adminPage">Admin Page</a>
+               <a href="/secure/staffPage">Staff Page</a>
+               <a href="/secure/userPage">User Page</a>
+               <a href="javascript: document.logoutForm.submit();" sec:authorize="isAuthenticated()">Logout</a>
+            </div>
+         </div>
+      </div>
+      <div th:fragment="logout_header">
+         <div class="row">
+            <div class="col-xs-12 text-right">
+               <a href="javascript: document.logoutForm.submit();" sec:authorize="isAuthenticated()">Logout</a>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

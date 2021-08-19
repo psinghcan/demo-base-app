@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="webjars/bootstrap/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/axios/dist/axios.min.js"></script>
+    <script src="/webjars/vue/vue.js"></script>
+    <!--    <script src="vendors/axios/axios.min.js"></script>-->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+    <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js" crossorigin="anonymous"></script>-->
+</head>
+<body>
+<div id="app">
+    <div class="row">
+        <div class="col-12" style="padding-top: 100px;">
+            <h5>Long Process Progress</h5>
+            <div class="progress">
+                <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" v-bind:style="{width: progress + '%'}" v-html="progress + '%'"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Message</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="event in events">
+                    <td v-html="event.id"></td>
+                    <td v-html="event.message"></td>
+                    <td v-html="event.description"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="webjars/sockjs-client/sockjs.min.js"></script>
+<script src="webjars/stomp-websocket/stomp.min.js"></script>
+<script src="webjars/vuex/2.5.0/dist/vuex.min.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            width: 0,
+            events: [],
+            progress: 0,
+            isCompleted: false
+        },
+        methods: {
+            handleUpdate(msg) {
+                console.log('in handleUpdate')
+                let event = JSON.parse(msg.body);
+                if (event.id === -1){
+                    this.processNext();
+                } else {
+                    this.progress = Math.round(event.id * 20);
+                    this.events.unshift({
+                        id: event.id,
+                        description: event.description,
+                        message: event.message
+                    })
+                    console.log('this.progress is ' + this.progress);
+                    console.log(msg.body);
+                }
+
+            },
+            subscribe(frame) {
+                console.log('Connected: ' + frame);
+                this.stompClient.subscribe('/ws-broadcast/long-process', this.handleUpdate);
+            },
+            connect() {
+                var socket = new SockJS('/websocket', {transports: ['websocket']});
+                this.stompClient = Stomp.over(socket);
+                this.stompClient.reconnect_delay = 5000;
+                this.stompClient.connect({}, this.subscribe);
+            },
+            processLong() {
+                console.log('in the processLong method');
+                this.progress = 0;
+                this.events = [];
+                this.width = 0;
+                var tmp = {
+                    placeholder: "Test"
+                };
+                axios.post("/demo", tmp)
+                    .then(function (response) {
+                        //console.log(response.data);
+                    }.bind(this))
+                    .catch(function (error) {
+                        //console.error(error);
+                    }.bind(this));
+            },
+            processNext() {
+                this.stompClient.unsubscribe();
+                this.stompClient.disconnect();
+                console.log('job finished; sending next page');
+                window.location.href = "/finish";
+            },
+        },
+        mounted() {
+            this.connect();
+
+        },
+    });
+</script>
+</body>
+</html>
