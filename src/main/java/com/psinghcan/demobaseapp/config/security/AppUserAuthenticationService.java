@@ -17,7 +17,6 @@ public class AppUserAuthenticationService implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException
     {
-        System.out.println("test");
         Authentication retVal = null;
         List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
 
@@ -25,8 +24,6 @@ public class AppUserAuthenticationService implements AuthenticationProvider {
         {
             String name = auth.getName();
             String password = auth.getCredentials().toString();
-            System.out.println("name: " + name);
-            System.out.println("password: " + password);
 
             if (name.equals("admin") && password.equals("admin123"))
             {
@@ -37,7 +34,6 @@ public class AppUserAuthenticationService implements AuthenticationProvider {
                 retVal = new UsernamePasswordAuthenticationToken(
                         name, "", grantedAuths
                 );
-                System.out.println("grant Admin");
             }
             else if (name.equals("staff") && password.equals("staff123"))
             {
@@ -47,7 +43,6 @@ public class AppUserAuthenticationService implements AuthenticationProvider {
                 retVal = new UsernamePasswordAuthenticationToken(
                         name, "", grantedAuths
                 );
-                System.out.println("grant Staff");
             }
             else if (name.equals("user") && password.equals("user123"))
             {
@@ -56,19 +51,14 @@ public class AppUserAuthenticationService implements AuthenticationProvider {
                 retVal = new UsernamePasswordAuthenticationToken(
                         name, "", grantedAuths
                 );
-                System.out.println("grant User");
             }
         }
         else
         {
-            System.out.println("invalid login");
             retVal = new UsernamePasswordAuthenticationToken(
                     null, null, grantedAuths
             );
-            System.out.println("bad Login");
         }
-
-        System.out.println("return login info");
         return retVal;
     }
 

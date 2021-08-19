@@ -16,6 +16,14 @@ public class LoginController
         return retVal;
     }
 
+    @RequestMapping(value={"", "/", "/index"}, method = RequestMethod.GET)
+    public ModelAndView index()
+    {
+        ModelAndView retVal = new ModelAndView();
+        retVal.setViewName("index");
+        return retVal;
+    }
+
     @RequestMapping(value="/public/logout", method = RequestMethod.GET)
     public ModelAndView logout()
     {

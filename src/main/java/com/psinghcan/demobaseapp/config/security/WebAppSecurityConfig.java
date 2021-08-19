@@ -53,7 +53,7 @@ public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("userpass")
                 .successHandler(new SavedRequestAwareAuthenticationSuccessHandler())
-                .defaultSuccessUrl("/secure/index", true).failureUrl("/public/authFailed")
+                .defaultSuccessUrl("/index", true).failureUrl("/public/authFailed")
                 .and()
                 .logout().logoutSuccessUrl("/public/logout")
                 .permitAll()
