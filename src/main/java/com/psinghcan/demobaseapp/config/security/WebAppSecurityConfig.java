@@ -19,11 +19,6 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    public WebAppSecurityConfig(AccessDeniedHandler accessDeniedHandler, AppUserAuthenticationService authenticationService){
-//        this.accessDeniedHandler = accessDeniedHandler;
-//        this.authenticationService = authenticationService;
-//    }
-
     public WebAppSecurityConfig(AccessDeniedHandler accessDeniedHandler){
         this.accessDeniedHandler = accessDeniedHandler;
     }
@@ -43,22 +38,6 @@ public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("admin")
                 .password("admin123").roles("USER", "BIZ1", "BIZ2", "ADMIN");
     }
-
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-//        auth.inMemoryAuthentication()
-//                .withUser("user")
-//                .password("user123").roles("USER");
-//        auth.inMemoryAuthentication()
-//                .withUser("biz1")
-//                .password("biz123").roles("BIZ1");
-//        auth.inMemoryAuthentication()
-//                .withUser("biz2")
-//                .password("biz123").roles("BIZ2");
-//        auth.inMemoryAuthentication()
-//                .withUser("admin")
-//                .password("admin123").roles("USER", "BIZ1", "BIZ2", "ADMIN");
-//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception
@@ -82,12 +61,6 @@ public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
     }
 
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder authMgrBuilder)
-//            throws Exception
-//    {
-//        authMgrBuilder.authenticationProvider(authenticationService);
-//    }
 
     @SuppressWarnings("deprecation")
     @Bean
@@ -96,6 +69,5 @@ public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private AccessDeniedHandler accessDeniedHandler;
-//    private AppUserAuthenticationService authenticationService;
 
 }
